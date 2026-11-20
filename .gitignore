@@ -1,0 +1,22 @@
+# Секреты и конфиги с паролями
+.env
+app/protected/config/config.php
+
+# Логи и системный кэш
+logs/
+app/assets/*
+!app/assets/.hgempty
+app/protected/runtime/*
+!app/protected/runtime/.hgempty
+
+# Временные файлы и загрузки (ЛИЧНЫЕ ДАННЫЕ!)
+app/temp/*
+!app/temp/.htaccess
+app/uploads/*
+!app/uploads/.htaccess
+
+# Старые файлы Mercurial и временные файлы Word
+.hgignore
+.hgtags
+.hg_archival.txt
+~$*

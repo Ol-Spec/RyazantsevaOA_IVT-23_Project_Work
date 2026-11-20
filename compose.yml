@@ -1,0 +1,44 @@
+services:
+  main-db:
+    image: harbor.sibsiu.ru/database/mariadb:stable
+    restart: always
+    environment:
+      MARIADB_DATABASE: "yconfs"
+      MARIADB_USER: "yconfs"
+      MARIADB_PASSWORD: "yconfs"
+      MARIADB_ROOT_PASSWORD: "root"
+      TZ: "Asia/Novokuznetsk"
+    volumes:
+      - ./app/protected/data/schema.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./database:/var/lib/mysql:rw
+    networks:
+      - yconfs
+
+  yconfs:
+    build: .
+    restart: always
+    ports:
+      - 8084:80
+    environment:
+      DB_HOST: "main-db"
+      DB_NAME: "yconfs"
+      DB_USERNAME: "yconfs"
+      DB_PASSWORD: "yconfs"
+
+      CONTACT_EMAIL: "rector@sibsiu.ru"
+      CONTACT_PHONE: "+7(3843)77-79-79"
+
+      TEST_EMAIL: "test@sibsiu.ru"
+
+      TZ: "Asia/Novokuznetsk"
+    volumes:
+      - ./app:/var/www/html:rw
+      - ./logs/apache2:/var/log/apache2:rw
+      - ./logs/php:/var/log/php:rw
+    links:
+      - main-db
+    networks:
+      - yconfs
+
+networks:
+  yconfs:

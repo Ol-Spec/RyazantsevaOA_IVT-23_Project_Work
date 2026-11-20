@@ -1,0 +1,1 @@
+*/10 * * * * wget -O /dev/null -q http://localhost/cron/cronPwd
